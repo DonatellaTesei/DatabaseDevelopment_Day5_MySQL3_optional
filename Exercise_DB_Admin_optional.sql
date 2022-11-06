@@ -1,5 +1,5 @@
-#1. Report:
-#How many rows do we have in each table in the employees database?
+/* 1. Report:
+How many rows do we have in each table in the employees database? */
 #working on each table separately
 SELECT COUNT(*) FROM departments;
 SELECT COUNT(*) FROM dept_emp;
@@ -22,21 +22,21 @@ employees 299512
 salaries 2838354
 titles    442308
 
-#2.Report:
-#How many employees with the first name "Mark" do we have in our company?
+/* 2.Report:
+How many employees with the first name "Mark" do we have in our company? */
 SELECT COUNT(first_name) FROM employees WHERE first_name = 'Mark';
 #output 230
 
-#3.Report:
-#How many employees with the first name "Eric" and the last name beginning with "A" do we have in our company?
+/* 3.Report:
+How many employees with the first name "Eric" and the last name beginning with "A" do we have in our company? */
 SELECT COUNT(first_name) FROM employees WHERE first_name = 'Mark' AND last_name LIKE 'A%';
 #output 12
 
 SELECT first_name, last_name FROM employees WHERE first_name = 'Mark' AND last_name LIKE 'A%';
 #will show the employees names and surnames
 
-#4.Report:  HILFE!!!
-How many employees do we have that are working for us since 1985 and who are they?
+/* 4.Report:  HILFE!!!
+How many employees do we have that are working for us since 1985 and who are they? */
 SELECT first_name, last_name, emp_no        #output first_name, last_name, emp_no total results 13237                    
 FROM employees 
 WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE from_date LIKE '1985%' AND to_date LIKE '9999-01-01%')
@@ -61,8 +61,8 @@ Peac        1
 Terkki      1
 Herbst      1
 
-#5.Report:
-How many employees got hired from 1990 until 1997 and who are they?
+/* 5.Report:
+How many employees got hired from 1990 until 1997 and who are they? */
 SELECT COUNT(*) FROM employees 
 WHERE year(hire_date) BETWEEN 1990 AND 1997;
 SELECT last_name, hire_date FROM employees 
@@ -73,15 +73,15 @@ WHERE year(hire_date) BETWEEN 1990 AND 1997;
 SELECT last_name, hire_date FROM employees 
 WHERE year(hire_date) >= 1990 AND year(hire_date) <= 1997;
 
-6. Report:
-How many employees have salaries higher than EUR 70 000,00 and who are they? 
+/* 6. Report:
+How many employees have salaries higher than EUR 70 000,00 and who are they? */ 
 SELECT COUNT(*) FROM employees WHERE emp_no IN (SELECT emp_no FROM salaries WHERE salary > 70000);
 #output 135631
 SELECT first_name, last_name, emp_no FROM employees WHERE emp_no IN (SELECT emp_no FROM salaries WHERE salary > 70000);
 
 
-7. Report: #3 info from 2 tables 
-How many employees do we have in the Research Department, who are working for us since 1992 and who are they?
+/* 7. Report: #3 info from 2 tables 
+How many employees do we have in the Research Department, who are working for us since 1992 and who are they? */
 SELECT COUNT(*)
 FROM employees 
 WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE dept_no = 'd008' AND from_date LIKE '1992%' AND to_date LIKE '9999-01-01%')
@@ -92,7 +92,7 @@ WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE dept_no = 'd008' AND from_dat
 #output table with name, surnames and emp_no, 924 results
 
 # HILFE!!!!!!!!
-TIP: You can use the CURRENT_DATE() FUNCTION to access "today's date"
+# TIP: You can use the CURRENT_DATE() FUNCTION to access "today's date"
 SELECT COUNT(*)
 FROM employees 
 WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE dept_no = 'd008'AND year(from_date) >= 1992 AND year(to_date) <= CURRENT_DATE())
@@ -102,9 +102,9 @@ FROM employees
 WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE dept_no = 'd008'AND year(from_date) >= 1992 AND year(to_date) <= CURRENT_DATE())
 
 
-8.Report #3 info from 3 tables
+/* 8.Report #3 info from 3 tables
 How many employees do we have in the Finance Department, who are working for us since 1985 until 
-now and who have salaries higher than EUR 75 000,00 - who are they?
+now and who have salaries higher than EUR 75 000,00 - who are they? */
 
 
 SELECT emp_no FROM dept_emp WHERE year(to_date) LIKE 2000
