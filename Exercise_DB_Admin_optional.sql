@@ -29,10 +29,10 @@ SELECT COUNT(first_name) FROM employees WHERE first_name = 'Mark';
 
 /* 3.Report:
 How many employees with the first name "Eric" and the last name beginning with "A" do we have in our company? */
-SELECT COUNT(first_name) FROM employees WHERE first_name = 'Mark' AND last_name LIKE 'A%';
-#output 12
+SELECT COUNT(*) FROM employees WHERE first_name = 'Eric' AND last_name LIKE 'A%';
+#output 13
 
-SELECT first_name, last_name FROM employees WHERE first_name = 'Mark' AND last_name LIKE 'A%';
+SELECT first_name, last_name FROM employees WHERE first_name = 'Eric' AND last_name LIKE 'A%';
 #will show the employees names and surnames
 
 /* 4.Report:  HILFE!!!
@@ -79,17 +79,20 @@ SELECT COUNT(*) FROM employees WHERE emp_no IN (SELECT emp_no FROM salaries WHER
 #output 135631
 SELECT first_name, last_name, emp_no FROM employees WHERE emp_no IN (SELECT emp_no FROM salaries WHERE salary > 70000);
 
-
 /* 7. Report: #3 info from 2 tables 
 How many employees do we have in the Research Department, who are working for us since 1992 and who are they? */
-SELECT COUNT(*)
+
+SELECT first_name, last_name, emp_no, hire_date 
 FROM employees 
-WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE dept_no = 'd008' AND from_date LIKE '1992%' AND to_date LIKE '9999-01-01%')
-#output 924 
-SELECT first_name, last_name, emp_no 
+WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE dept_no = 'd008' AND to_date LIKE '9999-01-01%') 
+AND year(hire_date) = 1992;
+#output 1047
+
+SELECT COUNT(*) 
 FROM employees 
-WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE dept_no = 'd008' AND from_date LIKE '1992%' AND to_date LIKE '9999-01-01%')
-#output table with name, surnames and emp_no, 924 results
+WHERE emp_no IN (SELECT emp_no FROM dept_emp WHERE dept_no = 'd008' AND to_date LIKE '9999-01-01%') 
+AND year(hire_date) = 1992;
+#output 1047
 
 # HILFE!!!!!!!!
 # TIP: You can use the CURRENT_DATE() FUNCTION to access "today's date"
